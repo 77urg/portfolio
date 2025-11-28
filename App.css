@@ -1,0 +1,777 @@
+/* --------------------------------------------------
+   FONTS
+-------------------------------------------------- */
+
+/* Tusker for DRUMMER / DEVELOPER */
+@font-face {
+  font-family: "TuskerGrotesk2600";
+  src: url("/TuskerGrotesk-2600Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Migra Extrabold (for Julian Grande, creative, &) */
+@font-face {
+  font-family: "Migra";
+  src: url("/Migra-Extrabold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Migra Extralight is no longer used */
+
+/* Neue Montreal Medium */
+@font-face {
+  font-family: "NeueMontrealMedium";
+  src: url("/NeueMontreal-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Neue Montreal Light */
+@font-face {
+  font-family: "NeueMontrealLight";
+  src: url("/NeueMontreal-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Neue Montreal Bold */
+@font-face {
+  font-family: "NeueMontrealBold";
+  src: url("/NeueMontreal-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Latin725 */
+@font-face {
+  font-family: "Latin 725";
+  src: url("/latin725.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Maelstrom */
+@font-face {
+  font-family: "Maelstrom";
+  src: url("/maelstrom.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
+:root {
+  --global-fade: 0; /* 0 = fully visible image, 1 = fully faded into dark */
+}
+
+.global-bg-image,
+.global-bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -10;        /* stays behind everything */
+  pointer-events: none;
+}
+
+/* Background image */
+.global-bg-image {
+  background-image: url("/background-bright.jpg");
+  background-size: cover;
+  background-position: center bottom !important;
+  background-repeat: no-repeat;
+  opacity: calc(1 - var(--global-fade));
+  transition: opacity 0.12s linear;
+}
+
+/* Dark background color overlay */
+.global-bg-overlay {
+  background: #131313;
+  opacity: var(--global-fade);
+  transition: opacity 0.12s linear;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050608;
+  color: #f5eee4;
+}
+
+
+
+.app-wrapper {
+  position: relative;
+  z-index: 1;     
+}
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  border-bottom: none; /* remove full-width border */
+}
+
+.top-nav.blur-active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  background: rgba(5, 6, 8, 0.25);
+  z-index: 999; /* sits above text */
+}
+
+.top-nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 22px 80px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /*  inset border */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 14px;
+
+  /* This creates the 1cm gap on left & right */
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* LEFT: Julian Grande + divider + role */
+.top-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-name {
+  font-family: "latin725", serif;   /* EXTRABOLD */
+  font-weight: 350;
+  font-size: 20px;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.brand-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.brand-role {
+  font-family: "NeueMontrealMedium", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+  color: #ffffff;
+}
+
+
+/* RIGHT: works about contact music */
+.top-nav-right {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  font-family: "NeueMontrealLight", sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: lowercase;
+  font-weight: 525;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+  transition: 0.25;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: white;
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease-out;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ACTIVE PAGE STAYS UNDERLINED */
+.nav-link.active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+
+
+.home {
+  min-height: 100vh;
+}
+
+.hero {
+  position: relative;
+  height: 200vh;
+  background: transparent !important;
+}
+
+
+
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+/* make sure content is above bg + overlay */
+.hero-inner,
+.calendar-block,
+.hero-overlay {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* REMOVE all dark overlays completely */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+/* HERO INNER ANCHORING */
+.hero-inner {
+  position: absolute;
+  top: 30vh;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  padding: 0 10px -10px;  /* bottom-left positioning */
+  z-index: 10;
+}
+
+
+
+/* LEFT SIDE */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;   /* spacing from left edge */
+  gap: 10px;           
+}
+
+.hero-tag {
+  margin-left: 7px;
+  font-family: "Migra", serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #f1ddc6;
+  letter-spacing: 0.01em;
+  margin-bottom: -10px;  /* pull closer to DRUMMER */
+}
+
+.hero-title-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: "TuskerGrotesk2600";
+  font-size: clamp(6.5rem, 19.5vw, 15.5rem);
+  font-weight: 700;          /* heavier */
+  line-height: 0.92;         /* prevents overlap */
+  letter-spacing: 0.01em;
+  margin-top: -6px;
+  margin-bottom: 20px;       /* space before DEVELOPER */
+}
+
+.hero-title-line {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.15em;    /* adds clean spacing */
+}
+
+
+/* tiny serif ampersand */
+.hero-amp {
+  position: absolute;
+  right: -1.7rem;
+  bottom: 7.0em;            /* lifted */
+  font-family: "Migra", serif;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+  color: #f1ddc6;
+}
+
+
+
+/* RIGHT-SIDE PARAGRAPH */
+.hero-right {
+  position: absolute;
+  right: 10px;              /* move right */
+  bottom: 200px;             /* lower on screen */
+  max-width: 620px;
+  text-align: left;
+  letter-spacing: 0.1em;
+}
+
+.hero-right-text {
+  text-indent: 180px;
+  font-family: "NeueMontrealMedium", sans-serif;
+  font-size: 25px;
+  font-weight: 350;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* Fade overlay starts invisible */
+.hero-fade {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40vh;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 6, 8, 0) 0%,
+    #050608 100%
+  );
+}
+
+
+@media (max-width: 1024px) {
+  .hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 180px 40px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-nav-inner {
+    padding: 20px 24px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hero-inner {
+    padding: 170px 24px 50px;
+  }
+
+  .hero-amp {
+    right: -0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title-stack {
+    font-size: clamp(3.6rem, 19vw, 6.8rem);
+  }
+
+  .hero-amp {
+    right: -0.5rem;
+  }
+}
+
+.calendar-block {
+  position: absolute;
+  top: 150px;    /* adjust this to move up/down */
+  right: 350px;  /* adjust this for left/right */
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  z-index: 20;
+}
+
+/* Large Maelstrom day number */
+.calendar-day {
+  font-family: "Maelstrom", serif;
+  font-size: clamp(7rem, 15vw, 13rem);
+  color: #f4e8da;
+  line-height: 0.75;
+  letter-spacing: -0.03em;
+  transform: translateY(-8px); /* slight lift */
+}
+
+/* Right-side month + availability */
+.calendar-month-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 12px;
+}
+
+/* Month in Migra */
+.calendar-month {
+  font-family: "Migra", serif;
+  font-size: 1.9rem;
+  color: #f4e8da;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  margin-bottom: -6px;
+}
+
+/* "available for work" stacked */
+.calendar-availability {
+  font-family: "NeueMontrealMedium", sans-serif;
+  font-size: 1rem;
+  line-height: 1.05;
+  color: #f4e8da;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.app-wrapper {
+  position: relative;
+}
+
+#about {
+  scroll-margin-top: 675px;   /* adjust this number to match navbar height */
+}
+
+.about-section {
+  position: relative;
+  background: #131313;
+  min-height: 30vh;
+  padding-top: 30vh;  /* normal content AFTER header */
+}
+
+/* pulls the about header UP onto the hero image */
+.about-overlap-title {
+  position: absolute;
+  top: -70vh;      /* THIS moves it upward over the hero */
+  left: 10vw;
+  z-index: 10;   /* ABOVE the hero fade */
+}
+
+.about-hello {
+  font-family: "TuskerGrotesk2600";
+  font-size: clamp(1.5rem, 7.5vw, 8.5rem);
+  font-weight: 700;
+  color: #f5eee4;
+  line-height: 0.9;
+}
+
+.about-name {
+  font-family: "Migra", serif;
+  font-size: clamp(1.0rem, 1.5vw, 1.9rem);
+  color: #e4d4c0;
+  margin-left: 14.95vw;
+  margin-top: 1.9vh;
+}
+
+.about-description {
+  margin-top: 4vh;
+
+  /* ALIGN WITH LEFT EDGE OF 'HELLO' */
+  left: 10vw;    
+
+  max-width: 750px;
+
+  font-family: "NeueMontrealMedium", sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #ffffff;
+
+  /* FIRST-LINE INDENT */
+  text-indent: 220px;
+}
+
+.about-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 4vw;
+  margin-top: 6vh;
+  align-items: flex-start;
+}
+
+.about-description {
+  flex: 1;
+  margin-left: 0vw;
+  max-width: 700px;
+
+  font-family: "NeueMontrealMedium", sans-serif;
+  font-size: 25px;
+  font-weight: 350;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #ffffff;
+
+  text-indent: 120px;
+}
+
+.caesar-container {
+  position: relative;
+  width: 30vw;        /* adjust size */
+  height: 100vh;       /* adjust height */
+  margin-right: 0vw;
+  
+  align-self: flex-start;   /* moves it to the top of the row */
+  margin-top: -7vh;        
+}
+
+/* The overlay container */
+.caesar-label {
+  position: absolute;
+  bottom: 93vh;         /* adjust up/down */
+  left: 2vw;            /* adjust left/right */
+  z-index: 20;
+  pointer-events: none; /* so mouse drag still moves Caesar */
+}
+
+
+.caesar-label-top {
+  font-family: "NeueMontrealMedium", sans-serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+
+.caesar-label-bottom {
+  font-family: "Migra", serif;
+  font-size: 1.3rem;
+  margin-top: -0.6vh;      /* pull closer */
+  color: #e4d4c0;         
+}
+
+/* Circle PNG */
+.caesar-circle {
+  position: absolute;
+  top: -15px;       /* adjust */
+  left: 225px;     /* adjust */
+  width: 110px;    /* adjust */
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* Arrow PNG */
+.caesar-arrow {
+  position: absolute;
+  top: 25px;      /* adjust */
+  left: 275px;     /* adjust */
+  width: 180px;    /* adjust */
+  transform: rotate(-35deg); /* optional fine-tune */
+  pointer-events: none;
+  z-index: 41;
+}
+
+/* WORKS SECTION */
+#works {
+  scroll-margin-top: -25px;
+}
+
+.works-section {
+  background: #181818;
+  padding-top: 18vh;
+  padding-bottom: 20vh;
+  width: 100%;
+  position: relative;
+}
+
+.works-section::before {
+  content: "";
+  position: absolute;
+  top: -10vh; /* overlaps the About section */
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  background: linear-gradient(
+    to bottom,
+    #131313 0%,   /* ABOUT section color */
+    #181818 100%  /* WORKS section color */
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Header */
+.works-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 12vh;
+}
+
+.works-heading {
+  font-family: "TuskerGrotesk2600";
+  font-size: clamp(3rem, 12vw, 8rem);
+  font-weight: 700;
+  color: #f5eee4;
+  line-height: 0.9;
+}
+
+/* Rows */
+.work-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6vw;
+  margin-bottom: 22vh;
+}
+
+.work-row.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Text */
+.work-text {
+  max-width: 420px;
+}
+
+.work-title {
+  font-family: "TuskerGrotesk2600";
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 700;
+  color: #f5eee4;
+  line-height: 0.85;
+}
+
+.work-subtitle {
+  font-family: "NeueMontrealMedium";
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.9rem;
+  color: #e6e6e6;
+}
+
+/* WRAPPER DEFAULT */
+.work-image-wrapper {
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* IMAGE DEFAULT */
+.work-image {
+  width: 40vw;
+  height: auto;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(0.85) brightness(1.05) saturate(0.4);
+  opacity: 0.9;
+
+  transition:
+    transform 3s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.5s ease;
+}
+
+/* HOVER — wrapper shrinks + image zooms ONLY */
+.work-image-wrapper:hover {
+  transform: scale(0.92);
+}
+
+.work-image-wrapper:hover .work-image {
+  transform: scale(1.14);   /* remove filter change */
+}
+
+.work-link {
+  transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* Project Transition Overlay */
+.project-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.45),
+      rgba(0,0,0,0.45)
+    ),
+    url("/background-bright.jpg") center/cover no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* Case Page Text */
+.project-text {
+  position: fixed;
+  left: 5vw;
+  top: 50%;
+  transform: translateY(calc(-50% + 10px));
+  z-index: 1000000000;
+  color: #f5eee4;
+  pointer-events: none;
+  opacity: 0;
+  max-width: 30vw;
+}
+
+.project-title {
+  font-family: "TuskerGrotesk2600";
+  font-size: clamp(3.5rem, 6vw, 7.5rem);
+  font-weight: 700;
+  line-height: 0.9;
+}
+
+.project-subtitle {
+  font-family: "NeueMontrealMedium";
+  font-size: clamp(0.5rem, 1.1vw, 1.2rem);
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  margin-top: 1vw;
+}
+
+/* Back Arrow */
+.exit-transition-btn {
+  position: absolute;
+  top: 20.5vh;
+  left: 5vw;
+  background: none;
+  border: none;
+  z-index: 1000000001;
+  padding: 0;
+  cursor: pointer;
+}
+
+.back-arrow {
+  width: 196px;
+  height: auto;
+  opacity: 0.9;
+  transform: rotate(135deg) scaleY(-1);
+}
+
+.back-arrow:hover {
+  opacity: 1;
+}
